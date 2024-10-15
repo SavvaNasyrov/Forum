@@ -1,0 +1,6 @@
+services:
+  internalauthservice:
+    image: ${DOCKER_REGISTRY-}internalauthservice
+    build:
+      context: .
+      dockerfile: InternalAuthService/InternalAuthService/Dockerfile

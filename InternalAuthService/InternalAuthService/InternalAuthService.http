@@ -1,0 +1,6 @@
+@InternalAuthService_HostAddress = http://localhost:5277
+
+GET {{InternalAuthService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
