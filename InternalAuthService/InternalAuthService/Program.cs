@@ -10,6 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMemoryCache();
+
 builder.Configuration.AddJsonFile("./Secrets/passwords.json");
 
 builder.Services.AddDbContext<AppDbContext>(x => x.UseNpgsql(builder.Configuration["ConnStrings:npg"]));
