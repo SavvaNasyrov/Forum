@@ -13,5 +13,7 @@ namespace InternalAuthService.Models
 
         [EmailAddress]
         public required string Email { get; set; }
+
+        public required Role Role { get; set; }
     }
 }
