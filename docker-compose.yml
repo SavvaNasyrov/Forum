@@ -4,3 +4,8 @@ services:
     build:
       context: .
       dockerfile: InternalAuthService/InternalAuthService/Dockerfile
+  publicauthservice:
+    image: ${DOCKER_REGISTRY-}publicauthservice
+    build:
+      context: .
+      dockerfile: PublicAuth/PublicAuth/Dockerfile

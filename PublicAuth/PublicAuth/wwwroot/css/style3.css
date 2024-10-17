@@ -1,0 +1,43 @@
+.w{
+    display: flex;
+    justify-content: center;
+}
+.g{
+    display: flex;
+    flex-direction: column
+}
+.form-reg{
+    display: flex;
+    flex-direction: column
+}
+.form-log{
+    display: flex;
+    flex-direction: column
+}
+.form-sup{
+    display: flex;
+    flex-direction: column
+}
+.form-pass{
+    display: flex;
+    flex-direction: column
+}
+form{
+    display: flex;
+    flex-direction: column 
+}
+body{
+    background-image:url(img/i.webp);
+    Background-size: 400%;
+}
+li{
+    list-style: none;
+}
+a{
+    color: black;
+    text-decoration:none;
+}
+.li{
+    display: flex;
+    flex-direction: column  
+}

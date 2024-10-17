@@ -16,6 +16,8 @@ builder.Configuration.AddJsonFile("./Secrets/passwords.json");
 
 builder.Services.AddDbContext<AppDbContext>(x => x.UseNpgsql(builder.Configuration["ConnStrings:npg"]));
 
+builder.Services.AddSingleton<EmailClient>();
+
 var app = builder.Build();
 
 // Migrating Database
