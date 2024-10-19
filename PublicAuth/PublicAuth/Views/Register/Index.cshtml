@@ -1,0 +1,56 @@
+﻿@model RegisterUserModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>рега</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <div class="registr">
+        <div class="w">
+            <div class="g">
+                <div class="reg">
+                    <h1>Создать аккаунт</h1>
+                </div>
+                <div class="form-reg">
+                    <form method="post">
+                        <input type="email" name="Email" placeholder="Электронная почта">
+                        <br>
+                        <input type="text" name="Login" placeholder="Логин">
+                        <br>
+                        <input type="password" name="Password" placeholder="Пароль">
+                        <br>
+                        <input type="password" name="PasswordRe" placeholder="Повторите пароль">
+                        <br>
+                        <button type="submit">Создать</button>
+                    </form>
+                    <div>
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="text-danger">
+                                <ul>
+                                    @foreach (var state in ViewData.ModelState)
+                                    {
+                                        foreach (var error in state.Value.Errors)
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                    <div class="li">
+                        <div class="li-log">
+                            <li><a href="/">Войти в аккаунт</a></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

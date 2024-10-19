@@ -1,4 +1,4 @@
-﻿@model LoginModel;
+﻿@model LoginModel
 
 <div class="login">
     <div class="w">
@@ -8,15 +8,31 @@
             </div>
             <div class="form-log">
                 <form method="post">
-                    <input type="text" name="Username" placeholder="Логин">
+                    <input type="text" name="Username" placeholder="Логин" required>
                     <br>
-                    <input type="password" name="Password" placeholder="Пароль">
+                    <input type="password" name="Password" placeholder="Пароль" required>
                     <br>
                     <button type="submit">Войти</button>
                 </form>
+                <div>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="text-danger">
+                            <ul>
+                                @foreach (var state in ViewData.ModelState)
+                                {
+                                    foreach (var error in state.Value.Errors)
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
                 <div class="li">
                     <div class="li-reg">
-                        <li><a href="reg.html">Создать аккаунт</a></li>
+                        <li><a href="Register">Создать аккаунт</a></li>
                     </div>
                     <div class="li-sup">
                         <li><a href="sup.html">Забыл пароль</a></li>

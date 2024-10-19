@@ -1,9 +1,16 @@
-﻿namespace PublicAuth.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PublicAuth.Models
 {
     public class LoginModel
     {
-        public required string Username { get; set; }
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
-        public required string Password { get; set; }
+        [Required]
+        [Display(Name = "Пароль")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

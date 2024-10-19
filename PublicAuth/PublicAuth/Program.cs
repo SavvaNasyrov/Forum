@@ -1,8 +1,14 @@
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddSession();
+builder.Services.AddSession();
+
+var keysDirectory = new DirectoryInfo(@"app/keys");
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(keysDirectory)
+    .SetApplicationName("Forum");
 
 builder.Services.AddControllersWithViews();
 
@@ -23,7 +29,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseSession();
+app.UseSession();
 
 app.UseAuthorization();
 

@@ -20,6 +20,7 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - keys:/app/keys
   db:
     image: postgres:latest
     container_name: databese
@@ -32,3 +33,4 @@ services:
 
 volumes:
   postgres_data:
+  keys:

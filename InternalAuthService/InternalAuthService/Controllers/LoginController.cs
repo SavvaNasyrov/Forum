@@ -46,9 +46,10 @@ namespace InternalAuthService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(User user)
+        public async Task<IActionResult> Register(RegisterUserModel user)
         {
-            user.Id = Guid.NewGuid();
+            if (user.Password != user.PasswordRe)
+                return BadRequest("password");
 
             if (await _db.Users.AnyAsync(x => x.Email == user.Email))
                 return BadRequest("email");
@@ -56,11 +57,18 @@ namespace InternalAuthService.Controllers
             if (await _db.Users.AnyAsync(x => x.Login == user.Login))
                 return BadRequest("login");
 
-            await _db.Users.AddAsync(user);
+            await _db.Users.AddAsync(new User 
+            { 
+                Email = user.Email,
+                Login = user.Login,
+                PasswordHash = user.Password,
+                Role = Role.User,
+                Id = Guid.NewGuid(),
+            });
 
             await _db.SaveChangesAsync();
 
-            return await Login(new LoginModel { Username = user.Login, Password = user.PasswordHash });
+            return await Login(new LoginModel { Username = user.Login, Password = user.Password });
         }
 
         private static string GenerateToken()
