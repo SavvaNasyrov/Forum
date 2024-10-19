@@ -10,6 +10,29 @@ namespace PublicAuth.Controllers
     {
         private readonly HttpClient _httpClient = httpClient;
 
+        [HttpGet("Check")]
+        public async Task<ActionResult> CheckAsync()
+        {
+            if (Request.Cookies.TryGetValue("AuthToken", out var token))
+            {
+                var resp = await _httpClient.GetAsync($"http://internalauthservice:8080/api/Check?token={token}");
+
+                if (resp.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return View("CheckResult", await resp.Content.ReadAsStringAsync());
+                }
+                else if (resp.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return View("CheckResult", "Unauthorized");
+                }
+                else
+                {
+                    return View("CheckResult", "Fail");
+                }
+            }
+            return View("CheckResult", "Unauthorized");
+        }
+
         [HttpGet]
         public IActionResult Login(string? returnTo)
         {
@@ -54,17 +77,22 @@ namespace PublicAuth.Controllers
                 return View("Success");
         }
 
-        [HttpPost("Loguot")]
-        public async Task<IActionResult> LogoutAsync()
+        [HttpGet("Logout")]
+        public async Task<IActionResult> Logout()
         {
-            var resp = await _httpClient.PostAsync(
-                "http://internalauthservice:8080/api/Login/Logout",
-                new StringContent(string.Empty));
+            if (Request.Cookies.TryGetValue("AuthToken", out var token))
+            {
+                Response.Cookies.Delete("AuthToken");
 
-            if (!resp.IsSuccessStatusCode)
-                return View("SomethingWentWrong", "Our service now unavailable");
+                var resp = await _httpClient.PostAsync(
+                    $"http://internalauthservice:8080/api/Login/Logout?token={token}",
+                    new StringContent(string.Empty));
 
-            return View();
+                if (!resp.IsSuccessStatusCode)
+                    return View("SomethingWentWrong", "Our service now unavailable"); 
+            }
+
+            return View("Success");
         }
     }
 }
